@@ -13,17 +13,17 @@ mkdir output
 # Overwriting the config files and generating the EL and CL genesis
 docker run --rm -it -u $UID -v $PWD/output:/data \
   -v $PWD/config/values.env:/config/values.env \
-  ethpandaops/ethereum-genesis-generator:master all
+  wasif28/ethereum-genesis-generator:master all
 
 # Just creating the EL genesis
 docker run --rm -it -u $UID -v $PWD/output:/data \
   -v $PWD/config/values.env:/config/values.env \
-  ethpandaops/ethereum-genesis-generator:master el
+  wasif28/ethereum-genesis-generator:master el
 
 # Just creating the CL genesis
 docker run --rm -it -u $UID -v $PWD/output:/data \
   -v $PWD/config/values.env:/config/values.env \
-  ethpandaops/ethereum-genesis-generator:master cl
+  wasif28/ethereum-genesis-generator:master cl
 ```
 ### Environment variables
 
