@@ -101,9 +101,6 @@ gen_cl_config(){
         else
           genesis_args+=(--eth1-config /data/metadata/genesis.json)
         fi
-        if ! [ -z "$MAX_EFFECTIVE_BALANCE"]; then
-          genesis_args+=(--max-effective-balance $MAX_EFFECTIVE_BALANCE)
-        fi
         if ! [ -z "$CL_ADDITIONAL_VALIDATORS" ]; then
           if [[ $CL_ADDITIONAL_VALIDATORS = /* ]]; then
             validators_file=$CL_ADDITIONAL_VALIDATORS
@@ -111,6 +108,9 @@ gen_cl_config(){
             validators_file="/config/$CL_ADDITIONAL_VALIDATORS"
           fi
           genesis_args+=(--additional-validators $validators_file)
+        fi
+        if ! [ -z "$MAX_EFFECTIVE_BALANCE" ]; then
+          genesis_args+=(--max-effective-balance $MAX_EFFECTIVE_BALANCE)
         fi
         zcli_args=(
           pretty
