@@ -85,7 +85,7 @@ gen_cl_config(){
           # --mnemonics $tmp_dir/mnemonics.yaml
           --tranches-dir /data/metadata/tranches
           --state-output /data/metadata/genesis.ssz
-          --EffectiveBalance $MAX_EFFECTIVE_BALANCE
+          --max-effective-balance $MAX_EFFECTIVE_BALANCE
           --preset-phase0 $PRESET_BASE
           --preset-altair $PRESET_BASE
           --preset-bellatrix $PRESET_BASE
