@@ -82,9 +82,10 @@ gen_cl_config(){
         genesis_args=(
           deneb
           --config /data/metadata/config.yaml
-          # --mnemonics $tmp_dir/mnemonics.yaml
+          --mnemonics ""
           --tranches-dir /data/metadata/tranches
           --state-output /data/metadata/genesis.ssz
+          --EffectiveBalance $MAX_EFFECTIVE_BALANCE
           --preset-phase0 $PRESET_BASE
           --preset-altair $PRESET_BASE
           --preset-bellatrix $PRESET_BASE
