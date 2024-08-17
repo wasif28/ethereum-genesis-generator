@@ -9,7 +9,6 @@ SERVER_ENABLED="${SERVER_ENABLED:-false}"
 SERVER_PORT="${SERVER_PORT:-8000}"
 WITHDRAWAL_ADDRESS="${WITHDRAWAL_ADDRESS:-0xf97e180c050e5Ab072211Ad2C213Eb5AEE4DF134}"
 PRESET_BASE="${PRESET_BASE:-mainnet}"
-MAX_EFFECTIVE_BALANCE="${MAX_EFFECTIVE_BALANCE:-32000000000}" # 32 ETH in Gwei
 gen_shared_files(){
     . /apps/el-gen/.venv/bin/activate
     set -x
@@ -86,7 +85,6 @@ gen_cl_config(){
           # --mnemonics $tmp_dir/mnemonics.yaml
           --tranches-dir /data/metadata/tranches
           --state-output /data/metadata/genesis.ssz
-          --max-effective-balance $MAX_EFFECTIVE_BALANCE
           --preset-phase0 $PRESET_BASE
           --preset-altair $PRESET_BASE
           --preset-bellatrix $PRESET_BASE
@@ -102,6 +100,9 @@ gen_cl_config(){
           genesis_args+=(--shadow-fork-eth1-rpc=$SHADOW_FORK_RPC --eth1-config "")
         else
           genesis_args+=(--eth1-config /data/metadata/genesis.json)
+        fi
+        if ! [ -z "$MAX_EFFECTIVE_BALANCE"]; then
+          genesis_args+=(--max-effective-balance $MAX_EFFECTIVE_BALANCE)
         fi
         if ! [ -z "$CL_ADDITIONAL_VALIDATORS" ]; then
           if [[ $CL_ADDITIONAL_VALIDATORS = /* ]]; then
