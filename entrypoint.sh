@@ -66,24 +66,23 @@ gen_cl_config(){
         COMMENT="# $HUMAN_READABLE_TIMESTAMP"
         envsubst < /config/cl/config.yaml > /data/metadata/config.yaml
         sed -i "s/#HUMAN_TIME_PLACEHOLDER/$COMMENT/" /data/metadata/config.yaml
-        # envsubst < /config/cl/mnemonics.yaml > $tmp_dir/mnemonics.yaml
+        envsubst < /config/cl/mnemonics.yaml > $tmp_dir/mnemonics.yaml
         # Conditionally override values if preset is "minimal"
         if [[ "$PRESET_BASE" == "minimal" ]]; then
           gen_minimal_config
         fi
-        # cp $tmp_dir/mnemonics.yaml /data/metadata/mnemonics.yaml
+        cp $tmp_dir/mnemonics.yaml /data/metadata/mnemonics.yaml
         # Create deposit_contract.txt and deploy_block.txt
         grep DEPOSIT_CONTRACT_ADDRESS /data/metadata/config.yaml | cut -d " " -f2 > /data/metadata/deposit_contract.txt
         echo $CL_EXEC_BLOCK > /data/metadata/deposit_contract_block.txt
         echo $BEACON_STATIC_ENR > /data/metadata/bootstrap_nodes.txt
-        # Envsubst mnemonics
-        # envsubst < /config/cl/mnemonics.yaml > $tmp_dir/mnemonics.yaml
+        Envsubst mnemonics
+        envsubst < /config/cl/mnemonics.yaml > $tmp_dir/mnemonics.yaml
         # Generate genesis
         genesis_args=(
           deneb
           --config /data/metadata/config.yaml
-          # --mnemonics $tmp_dir/mnemonics.yaml
-          --mnemonics ""
+          --mnemonics $tmp_dir/mnemonics.yaml
           --tranches-dir /data/metadata/tranches
           --state-output /data/metadata/genesis.ssz
           --preset-phase0 $PRESET_BASE
