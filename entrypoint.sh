@@ -83,6 +83,7 @@ gen_cl_config(){
           deneb
           --config /data/metadata/config.yaml
           # --mnemonics $tmp_dir/mnemonics.yaml
+          --mnemonics ""
           --tranches-dir /data/metadata/tranches
           --state-output /data/metadata/genesis.ssz
           --preset-phase0 $PRESET_BASE
@@ -110,7 +111,7 @@ gen_cl_config(){
           genesis_args+=(--additional-validators $validators_file)
         fi
         if [[ $MAX_EFFECTIVE_BALANCE != 32000000000  ]]; then
-          genesis_args+=(--max-effective-balance "$MAX_EFFECTIVE_BALANCE")
+          genesis_args+=(--max-effective-balance $MAX_EFFECTIVE_BALANCE)
         fi
         zcli_args=(
           pretty
