@@ -110,7 +110,7 @@ gen_cl_config(){
           genesis_args+=(--additional-validators $validators_file)
         fi
         if [[ $MAX_EFFECTIVE_BALANCE != 32000000000  ]]; then
-          genesis_args+=(--max-effective-balance $MAX_EFFECTIVE_BALANCE)
+          genesis_args+=(--max-effective-balance "$MAX_EFFECTIVE_BALANCE")
         fi
         zcli_args=(
           pretty
